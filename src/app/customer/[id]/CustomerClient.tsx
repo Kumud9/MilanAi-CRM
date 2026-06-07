@@ -96,12 +96,18 @@ export default function CustomerClient({ targetProfile, allProfiles }: CustomerC
     const storedNotes = JSON.parse(localStorage.getItem(`tdc-notes-${targetProfile.id}`) || "[]");
     setNotes(storedNotes);
 
-    // 3. Load sent match history
+    // 3. Load sent match history (both sent and received suggestions)
     const allHistory: MatchHistory[] = JSON.parse(localStorage.getItem("tdc-match-history") || "[]");
-    const clientHistory = allHistory.filter((h) => h.customerId === targetProfile.id);
+    const clientHistory = allHistory.filter((h) => h.customerId === targetProfile.id || h.matchId === targetProfile.id);
     setMatchHistory(clientHistory);
 
-    // 4. Save to recently viewed list
+    // 4. Load overridden status from localStorage
+    const localStatusOverrides = JSON.parse(localStorage.getItem("tdc-profile-statuses") || "{}");
+    if (localStatusOverrides[targetProfile.id]) {
+      setJourneyStatus(localStatusOverrides[targetProfile.id]);
+    }
+
+    // 5. Save to recently viewed list
     const recents: string[] = JSON.parse(localStorage.getItem("tdc-recent-profiles") || "[]");
     const updatedRecents = [targetProfile.id, ...recents.filter((id) => id !== targetProfile.id)].slice(0, 5);
     localStorage.setItem("tdc-recent-profiles", JSON.stringify(updatedRecents));
@@ -128,6 +134,22 @@ export default function CustomerClient({ targetProfile, allProfiles }: CustomerC
     localStatusOverrides[targetProfile.id] = newStatus;
     localStorage.setItem("tdc-profile-statuses", JSON.stringify(localStatusOverrides));
     toast("Pipeline Stage Updated", `Customer journey status set to ${newStatus}.`, "success");
+  };
+
+  const handleUpdateMatchStatus = (historyId: string, newStatus: MatchHistory['status']) => {
+    const allHistory: MatchHistory[] = JSON.parse(localStorage.getItem("tdc-match-history") || "[]");
+    const updatedHistory = allHistory.map((h) => {
+      if (h.id === historyId) {
+        return { ...h, status: newStatus };
+      }
+      return h;
+    });
+    localStorage.setItem("tdc-match-history", JSON.stringify(updatedHistory));
+    
+    // Refresh local match history state
+    setMatchHistory(updatedHistory.filter((h) => h.customerId === targetProfile.id || h.matchId === targetProfile.id));
+
+    toast("Match Status Updated", `Recommendation status set to ${newStatus}.`, "success");
   };
 
   // Notes CRM CRUD
@@ -1003,35 +1025,70 @@ export default function CustomerClient({ targetProfile, allProfiles }: CustomerC
                             </TableRow>
                           </TableHeader>
                           <TableBody>
-                            {matchHistory.map((h) => (
-                              <TableRow key={h.id}>
-                                <TableCell>
-                                  <div className="flex flex-col">
-                                    <span className="font-semibold text-text-primary">{h.matchName}</span>
-                                    <span className="text-[10px] text-text-muted font-medium">ID: {h.matchId}</span>
-                                  </div>
-                                </TableCell>
-                                <TableCell className="text-text-secondary text-xs font-medium">{h.date}</TableCell>
-                                <TableCell>
-                                  <span className="text-xs font-bold text-primary bg-primary-light px-2 py-0.5 rounded border border-primary/20">
-                                    {h.score}% Match
-                                  </span>
-                                </TableCell>
-                                <TableCell>
-                                  <Badge status={h.journeyStatus}>{h.journeyStatus}</Badge>
-                                </TableCell>
-                                <TableCell className="text-right">
-                                  <span className={cn("text-xs font-bold px-2 py-1 rounded-full inline-block border", {
-                                    "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/30": h.status === 'Accepted',
-                                    "bg-surface-secondary text-text-secondary border-border-custom": h.status === 'Sent',
-                                    "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/20 dark:text-indigo-400 dark:border-indigo-900/30": h.status === 'Discussing' || h.status === 'Viewed',
-                                    "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/20 dark:text-red-400 dark:border-red-800/30": h.status === 'Rejected'
-                                  })}>
-                                    {h.status}
-                                  </span>
-                                </TableCell>
-                              </TableRow>
-                            ))}
+                            {matchHistory.map((h) => {
+                              const isReceived = h.matchId === targetProfile.id;
+                              let matchName = h.matchName;
+                              let matchId = h.matchId;
+                              if (isReceived) {
+                                const sender = allProfiles.find((p) => p.id === h.customerId);
+                                matchName = sender ? `${sender.firstName} ${sender.lastName}` : `Client ID: ${h.customerId}`;
+                                matchId = h.customerId;
+                              }
+
+                              return (
+                                <TableRow key={h.id}>
+                                  <TableCell>
+                                    <div className="flex flex-col">
+                                      <span className="font-semibold text-text-primary flex items-center gap-1.5">
+                                        {matchName}
+                                        {isReceived ? (
+                                          <span className="text-[9px] font-bold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-400 border border-indigo-200/50 rounded-full px-1.5 py-0.2">
+                                            Received
+                                          </span>
+                                        ) : (
+                                          <span className="text-[9px] font-bold bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border border-amber-200/50 rounded-full px-1.5 py-0.2">
+                                            Sent
+                                          </span>
+                                        )}
+                                      </span>
+                                      <span className="text-[10px] text-text-muted font-medium">ID: {matchId}</span>
+                                    </div>
+                                  </TableCell>
+                                  <TableCell className="text-text-secondary text-xs font-medium">{h.date}</TableCell>
+                                  <TableCell>
+                                    <span className="text-xs font-bold text-primary bg-primary-light px-2 py-0.5 rounded border border-primary/20">
+                                      {h.score}% Match
+                                    </span>
+                                  </TableCell>
+                                  <TableCell>
+                                    <Badge status={h.journeyStatus}>{h.journeyStatus}</Badge>
+                                  </TableCell>
+                                  <TableCell className="text-right">
+                                    <div className="flex items-center justify-end gap-2">
+                                      <span className={cn("text-xs font-bold px-2 py-1 rounded-full inline-block border", {
+                                        "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/30": h.status === 'Accepted',
+                                        "bg-surface-secondary text-text-secondary border-border-custom": h.status === 'Sent',
+                                        "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/20 dark:text-indigo-400 dark:border-indigo-900/30": h.status === 'Discussing' || h.status === 'Viewed',
+                                        "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/20 dark:text-red-400 dark:border-red-800/30": h.status === 'Rejected'
+                                      })}>
+                                        {h.status}
+                                      </span>
+                                      
+                                      <select
+                                        value={h.status}
+                                        onChange={(e) => handleUpdateMatchStatus(h.id, e.target.value as MatchHistory['status'])}
+                                        className="text-[10px] font-bold border border-border-custom bg-surface rounded px-1.5 py-0.5 outline-none text-text-secondary cursor-pointer hover:border-primary transition-colors"
+                                      >
+                                        <option value="Sent">Sent</option>
+                                        <option value="Discussing">Discussing</option>
+                                        <option value="Accepted">Accepted</option>
+                                        <option value="Rejected">Rejected</option>
+                                      </select>
+                                    </div>
+                                  </TableCell>
+                                </TableRow>
+                              );
+                            })}
                           </TableBody>
                         </Table>
                       </div>
