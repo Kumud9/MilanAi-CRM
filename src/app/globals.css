@@ -4,28 +4,28 @@
 
 :root {
   /* Vibrant Brand Colors */
-  --primary: #FF4500;
-  --primary-hover: #E63E00;
-  --primary-light: #FFF0EB;
-  --accent: #E91E63;
+  --primary: #E05470;            /* Rose Accent */
+  --primary-hover: #C4566A;      /* Rose Accent Hover */
+  --primary-light: #FBF0F2;      /* Very soft rose pink */
+  --accent: #C9A84C;             /* Gold Accent */
 
   /* Backgrounds & Surfaces */
-  --background: #f8f9fa;
-  --surface: #ffffff;
-  --surface-secondary: #f0f4f8;
-  --border: #e2e6ea;
+  --background: #FCF9FA;         /* Soft light grey-plum */
+  --surface: #FFFFFF;            /* White card background */
+  --surface-secondary: #F5EEF0;  /* Soft lavender-pink background */
+  --border: rgba(224, 84, 112, 0.12); /* Soft rose-tinted border */
 
   /* Text */
-  --text-primary: #1a1a24;
-  --text-secondary: #5a5a66;
-  --text-muted: #8b8b99;
+  --text-primary: #2A1520;       /* Deep plum text */
+  --text-secondary: #604351;     /* Soft dark plum text */
+  --text-muted: #947885;         /* Muted plum text */
 
   /* Status Colors */
   --status-lead: #8E8E93;
-  --status-verified: #FF4500;
-  --status-searching: #FF9500;
-  --status-matched: #00C7BE;
-  --status-meeting: #32ADE6;
+  --status-verified: #E05470;
+  --status-searching: #E07D54;
+  --status-matched: #00B1A9;
+  --status-meeting: #3296C6;
   --status-engaged: #AF52DE;
   --status-married: #34C759;
   --status-inactive: #C7C7CC;
@@ -33,30 +33,30 @@
 
 .dark {
   /* Vibrant Brand Colors */
-  --primary: #FF5E1A;
-  --primary-hover: #FF7538;
-  --primary-light: rgba(255, 69, 0, 0.15);
-  --accent: #EC407A;
+  --primary: #E05470;            /* Rose */
+  --primary-hover: #C4566A;      /* Rose Hover */
+  --primary-light: rgba(224, 84, 112, 0.15); /* Rose Dim */
+  --accent: #C9A84C;             /* Gold */
 
   /* Backgrounds & Surfaces */
-  --background: #080415;
-  --surface: #120A2B;
-  --surface-secondary: #1b113a;
-  --border: #2b1e52;
+  --background: #15080D;         /* Deep Dark Plum */
+  --surface: #1E0F15;            /* Darker Plum */
+  --surface-secondary: #2A1520;  /* Dark Plum */
+  --border: rgba(224, 84, 112, 0.18); /* Rose Border */
 
   /* Text */
-  --text-primary: #EBE5F7;
-  --text-secondary: #A99EC6;
-  --text-muted: #7C709E;
+  --text-primary: #F5EEF0;       /* Lavender-pink light text */
+  --text-secondary: rgba(245, 238, 240, 0.65); /* Semi-transparent light text */
+  --text-muted: rgba(245, 238, 240, 0.4);      /* Muted transparent light text */
 
   /* Status Colors (slightly brighter for dark theme context) */
   --status-lead: #9E9E93;
-  --status-verified: #FF5E1A;
-  --status-searching: #FFAE19;
-  --status-matched: #00D6CD;
-  --status-meeting: #4ABCEE;
+  --status-verified: #E05470;
+  --status-searching: #FF9500;
+  --status-matched: #00C7BE;
+  --status-meeting: #32ADE6;
   --status-engaged: #BF62EE;
-  --status-married: #45D76A;
+  --status-married: #34C759;
   --status-inactive: #D7D7DC;
 }
 

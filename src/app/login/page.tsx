@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/toast";
 import { User, Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { DarkVeil } from "@/components/DarkVeil";
+import { ClickSpark } from "@/components/ClickSpark";
 
 // Zod schemas
 const loginSchema = z.object({
@@ -204,8 +205,8 @@ export default function LoginPage() {
         }
 
         .brand-icon-tile {
-          width: 56px;
-          height: 56px;
+          width: 90px;
+          height: 90px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -579,6 +580,17 @@ export default function LoginPage() {
       <div className="page-layout">
         {/* LEFT PANEL */}
         <div className="left-panel">
+          {/* CLICK SPARK EFFECT */}
+          <ClickSpark
+            sparkColor="#ffffff"
+            sparkSize={1.5}
+            sparkRadius={30}
+            sparkCount={8}
+            duration={400}
+            easing="ease-out"
+            extraScale={1}
+          />
+
           {/* VEIL BACKGROUND CANVASES (Scoped to Left Panel) */}
           <div style={{ position: 'absolute', inset: 0, zIndex: -1, width: '100%', height: '100%' }}>
             <DarkVeil speed={1.2} warpAmount={0.3} />
