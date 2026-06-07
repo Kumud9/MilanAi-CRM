@@ -11,7 +11,7 @@ export default function RootPage() {
     if (session === "active") {
       router.replace("/dashboard");
     } else {
-      window.location.href = "/index.html";
+      router.replace("/login");
     }
   }, [router]);
 

@@ -20,7 +20,13 @@ export async function POST(req: NextRequest) {
       password?: string;
     }
 
-    const filePath = path.join(process.cwd(), 'data', 'users.json');
+    const dataDir = path.join(process.cwd(), 'data');
+    const filePath = path.join(dataDir, 'users.json');
+
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+
     let users: UserDBEntry[] = [];
     
     if (fs.existsSync(filePath)) {

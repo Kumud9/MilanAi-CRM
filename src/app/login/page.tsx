@@ -634,7 +634,7 @@ export default function LoginPage() {
                 <button 
                   type="button" 
                   className={`tab-btn ${activeTab === "signup" ? "active" : ""}`}
-                  onClick={() => { setActiveTab("login"); setActiveTab("signup"); resetLoginForm(); }}
+                  onClick={() => { setActiveTab("signup"); resetLoginForm(); }}
                 >
                   Register
                 </button>

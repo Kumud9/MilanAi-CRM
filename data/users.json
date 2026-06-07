@@ -37,5 +37,37 @@
     "email": "match@gmail.com",
     "name": "Dumuk",
     "provider": "credentials"
+  },
+  {
+    "id": "u_wkoxsg5",
+    "username": "testuser123",
+    "password": "testpass",
+    "email": "testuser123@example.com",
+    "name": "Test User",
+    "provider": "credentials"
+  },
+  {
+    "id": "u_yhwl2nc",
+    "username": "jyoti",
+    "password": "654321",
+    "email": "jyoti@gmail.com",
+    "name": "Jyoti",
+    "provider": "credentials"
+  },
+  {
+    "id": "u_vm591o1",
+    "username": "signuptest99",
+    "password": "testpass123",
+    "email": "signuptest99@example.com",
+    "name": "Signup Test",
+    "provider": "credentials"
+  },
+  {
+    "id": "u_zqg6y3q",
+    "username": "vijay",
+    "password": "654321",
+    "email": "vijay@gmail.com",
+    "name": "vijay",
+    "provider": "credentials"
   }
 ]
