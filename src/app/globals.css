@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Vibrant Brand Colors */
+  --primary: #FF4500;
+  --primary-hover: #E63E00;
+  --primary-light: #FFF0EB;
+  --accent: #E91E63;
+
+  /* Backgrounds & Surfaces */
+  --background: #f8f9fa;
+  --surface: #ffffff;
+  --surface-secondary: #f0f4f8;
+  --border: #e2e6ea;
+
+  /* Text */
+  --text-primary: #1a1a24;
+  --text-secondary: #5a5a66;
+  --text-muted: #8b8b99;
+
+  /* Status Colors */
+  --status-lead: #8E8E93;
+  --status-verified: #FF4500;
+  --status-searching: #FF9500;
+  --status-matched: #00C7BE;
+  --status-meeting: #32ADE6;
+  --status-engaged: #AF52DE;
+  --status-married: #34C759;
+  --status-inactive: #C7C7CC;
+}
+
+.dark {
+  /* Vibrant Brand Colors */
+  --primary: #FF5E1A;
+  --primary-hover: #FF7538;
+  --primary-light: rgba(255, 69, 0, 0.15);
+  --accent: #EC407A;
+
+  /* Backgrounds & Surfaces */
+  --background: #080415;
+  --surface: #120A2B;
+  --surface-secondary: #1b113a;
+  --border: #2b1e52;
+
+  /* Text */
+  --text-primary: #EBE5F7;
+  --text-secondary: #A99EC6;
+  --text-muted: #7C709E;
+
+  /* Status Colors (slightly brighter for dark theme context) */
+  --status-lead: #9E9E93;
+  --status-verified: #FF5E1A;
+  --status-searching: #FFAE19;
+  --status-matched: #00D6CD;
+  --status-meeting: #4ABCEE;
+  --status-engaged: #BF62EE;
+  --status-married: #45D76A;
+  --status-inactive: #D7D7DC;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--text-primary);
+  
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+  
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  
+  --color-border-custom: var(--border);
+  --color-accent: var(--accent);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  
+  /* Serif font for logo/headings, sans-serif for body */
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-inter), Arial, sans-serif;
+
+  /* Custom animation keyframes */
+  --animate-fade-in: fade-in 0.25s ease-out;
+  --animate-zoom-in: zoom-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-in-right: slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-in-left: slide-in-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-in-bottom: slide-in-bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes zoom-in {
+    from { transform: scale(0.96); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  @keyframes slide-in-right {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes slide-in-left {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+  @keyframes slide-in-bottom {
+    from { transform: translateY(24px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Base input field overrides for dark mode contrast */
+.dark input, 
+.dark select, 
+.dark textarea {
+  background-color: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--text-primary) !important;
+}
+.dark input::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.7;
+}
+.dark select option {
+  background-color: var(--surface) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Luxury card wrapper override */
+.luxury-card {
+  background: linear-gradient(180deg, var(--surface), var(--background));
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(255, 69, 0, 0.05);
+  border-radius: 18px;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+

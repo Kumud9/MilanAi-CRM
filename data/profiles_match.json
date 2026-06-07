@@ -1,0 +1,58 @@
+[
+  {
+    "id": "M201",
+    "firstName": "Kumud",
+    "lastName": "Chouhan",
+    "gender": "male",
+    "dob": "2003-01-01",
+    "age": 23,
+    "height": 175,
+    "email": "kumud.chouhan@example.com",
+    "phone": "+91 8113398766",
+    "city": "Vadodara",
+    "country": "India",
+    "education": {
+      "degree": "BTech",
+      "college": "University"
+    },
+    "career": {
+      "company": "Private Company",
+      "designation": "Software Developer",
+      "income": 1200000
+    },
+    "family": {
+      "religion": "Hindu",
+      "caste": "Kshatriya",
+      "siblings": 1,
+      "familyType": "Nuclear"
+    },
+    "lifestyle": {
+      "diet": "Vegetarian",
+      "smoking": "No",
+      "drinking": "No"
+    },
+    "preferences": {
+      "preferredAgeRange": {
+        "min": 18,
+        "max": 28
+      },
+      "preferredLocation": [
+        "Vadodara"
+      ],
+      "educationPreference": "BTech",
+      "wantKids": "Open",
+      "openToRelocate": "Open",
+      "openToPets": "Yes"
+    },
+    "motherTongue": "Gujarati",
+    "manglik": "No",
+    "hobbies": [
+      "Reading",
+      "Music"
+    ],
+    "journeyStatus": "Lead",
+    "maritalStatus": "Never Married",
+    "favorite": false,
+    "avatar": "https://robohash.org/male_Kumud_Chouhan.png?set=set4&bgset=bg1"
+  }
+]

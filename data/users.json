@@ -1,0 +1,41 @@
+[
+  {
+    "id": "u001",
+    "username": "matchmaker",
+    "password": "tdc123",
+    "email": "matchmaker@milanai.com",
+    "name": "Matchmaker Admin",
+    "provider": "credentials"
+  },
+  {
+    "id": "u_8dcbp8v",
+    "username": "Kumud",
+    "password": "Kumud123",
+    "email": "wckumud9@gmail.com",
+    "name": "Kumud Chouhan",
+    "provider": "credentials"
+  },
+  {
+    "id": "u_g1053505981",
+    "username": "priya.sharma",
+    "email": "priya.sharma@gmail.com",
+    "name": "Priya Sharma",
+    "provider": "google"
+  },
+  {
+    "id": "u_ugvwtue",
+    "username": "abc",
+    "password": "123456",
+    "email": "abc@gmi.com",
+    "name": "Kumud ",
+    "provider": "credentials"
+  },
+  {
+    "id": "u_56fowbd",
+    "username": "match",
+    "password": "123456",
+    "email": "match@gmail.com",
+    "name": "Dumuk",
+    "provider": "credentials"
+  }
+]

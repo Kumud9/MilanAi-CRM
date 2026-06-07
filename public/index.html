@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MilanAI — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --dark:#15080D;
+  --dark2:#1E0F15;
+  --dark3:#2A1520;
+  --dark4:#331820;
+  --rose:#E05470;
+  --rose2:#C4566A;
+  --rose-dim:rgba(224,84,112,0.15);
+  --rose-glow:rgba(224,84,112,0.08);
+  --gold:#C9A84C;
+  --gold-dim:rgba(201,168,76,0.18);
+  --text:#F5EEF0;
+  --text-muted:rgba(245,238,240,0.52);
+  --text-dim:rgba(245,238,240,0.22);
+  --border:rgba(224,84,112,0.18);
+  --border2:rgba(201,168,76,0.18);
+}
+
+html,body{
+  width:100%;height:100%;
+  font-family:'DM Sans',sans-serif;
+  background:var(--dark);
+  color:var(--text);
+  overflow:hidden;
+}
+
+.page{
+  display:flex;
+  width:100vw;height:100vh;
+  position:relative;z-index:1;
+  color:var(--text); /* Forces all text to be light */
+}
+
+/* ── LEFT PANEL ── */
+.left{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:5vh 6vw 5vh 10vw; 
+  position:relative;
+  overflow:hidden;
+  border-right:1px solid var(--border);
+  background: transparent; /* Lets the veil shine through completely */
+}
+
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:4vh; animation:fadeUp 0.6s ease both}
+.brand-icon{
+  width:56px;height:56px;
+  background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  margin-left:-10px;
+}
+.brand-icon img{ width:100%; height:100%; object-fit:contain; }
+.brand-name{
+  font-family:'Playfair Display',serif;
+  font-size:3.5rem; 
+  color:#ffffff;
+  letter-spacing:0.5px;
+  line-height:1;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.35); 
+}
+.brand-name span{
+  color:var(--gold);
+  font-style:italic;
+  text-shadow: 0 0 25px rgba(201, 168, 76, 0.5); 
+}
+.brand-sub{
+  font-size:0.85rem; 
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:rgba(245,238,240,0.7);
+  font-weight:500;
+  margin-top:8px;
+}
+
+.headline{animation:fadeUp 0.7s 0.08s ease both}
+.headline h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem, 5vw, 4.5rem); 
+  line-height:1.15;font-weight:600;
+  margin-bottom:2.5vh;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.headline h1 em{color:var(--rose);font-style:italic;display:block}
+.headline p{
+  font-size:clamp(1.1rem, 1.4vw, 1.3rem); 
+  color:var(--text-muted);
+  line-height:1.8;font-weight:300;
+  max-width:540px; 
+}
+
+.ornament{
+  margin-top:4vh;
+  font-size:0.85rem;letter-spacing:8px;
+  color:rgba(224,84,112,0.4);
+  animation:fadeUp 0.7s 0.3s ease both;
+}
+
+/* ── RIGHT PANEL ── */
+.right{
+  width:min(520px, 48vw); 
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:5vh 4.5vw;
+  background:var(--dark2); /* Reverted to the original solid dark color */
+  position:relative;
+  overflow:hidden;
+}
+.right::before{
+  content:'';position:absolute;
+  top:-60px;right:-60px;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(224,84,112,0.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.form-header{margin-bottom:2.5vh;animation:fadeUp 0.6s 0.1s ease both}
+.form-header h2{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:600;margin-bottom:8px; 
+}
+.form-header p{font-size:0.95rem;color:var(--text-muted);font-weight:300}
+
+.tabs{
+  display:flex;background:var(--dark3);
+  border-radius:12px;padding:4px;
+  margin-bottom:2.5vh;
+  animation:fadeUp 0.6s 0.15s ease both;
+}
+.tab{
+  flex:1;padding:0.55rem;text-align:center;
+  font-size:0.83rem;font-weight:500;
+  border:none;background:transparent;
+  color:var(--text-muted);cursor:pointer;
+  border-radius:9px;transition:all 0.25s;
+  font-family:'DM Sans',sans-serif;
+}
+.tab.active{background:var(--rose);color:#fff}
+
+.field{margin-bottom:1.8vh;animation:fadeUp 0.6s ease both}
+.flabel{
+  font-size:0.85rem;font-weight:500; 
+  color:var(--text-muted);margin-bottom:8px;
+  letter-spacing:0.3px;display:block;
+}
+.fwrap{position:relative}
+.ficon{
+  position:absolute;left:16px;top:50%;
+  transform:translateY(-50%);
+  font-size:19px;color:var(--text-dim);
+  pointer-events:none;z-index:1;
+}
+.finput{
+  width:100%;
+  background:var(--dark3);
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:0.9rem 1rem 0.9rem 3.2rem; 
+  font-family:'DM Sans',sans-serif;
+  font-size:0.95rem;color:var(--text); 
+  outline:none;
+  transition:border-color 0.2s,background 0.2s;
+}
+.finput::placeholder{color:var(--text-dim)}
+.finput:focus{border-color:var(--rose);background:rgba(224,84,112,0.05)}
+.eye{
+  position:absolute;right:15px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  color:var(--text-dim);font-size:19px;
+  transition:color 0.2s;padding:4px;
+}
+.eye:hover{color:var(--text-muted)}
+
+.forgot{
+  display:block;text-align:right;
+  font-size:0.85rem;color:var(--rose);
+  text-decoration:none;
+  margin-top:-0.6vh;margin-bottom:2vh;
+  transition:color 0.2s;
+}
+.forgot:hover{color:var(--gold)}
+
+.submit-btn{
+  width:100%;padding:1rem; 
+  background:var(--rose);
+  border:none;border-radius:11px;
+  font-family:'DM Sans',sans-serif;
+  font-size:1.05rem;font-weight:500; 
+  color:#fff;cursor:pointer;
+  letter-spacing:0.3px;
+  transition:all 0.2s;
+  margin-bottom:1.2vh;
+  position:relative;overflow:hidden;
+  animation:fadeUp 0.6s 0.35s ease both;
+}
+.submit-btn:hover{background:#c4455e;transform:translateY(-1px)}
+.submit-btn:active{transform:scale(0.99)}
+.submit-btn.loading{pointer-events:none;background:#7a2d3e}
+
+.shimmer{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.14),transparent);
+  background-size:200% 100%;
+  animation:shimmer 1.4s infinite;
+  display:none;
+}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+
+.switch{
+  text-align:center;font-size:0.82rem;
+  color:var(--text-muted);
+  animation:fadeUp 0.6s 0.5s ease both;
+}
+.switch a{color:var(--rose);text-decoration:none;font-weight:500}
+.switch a:hover{color:var(--gold)}
+
+/* success */
+.success{
+  display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:1.2rem;text-align:center;
+  padding:2rem;
+}
+@keyframes pulseRing{
+  0%{transform:scale(1);opacity:0.6}
+  70%{transform:scale(1.2);opacity:0}
+  100%{transform:scale(1.2);opacity:0}
+}
+@keyframes tickIn{
+  0%{transform:scale(0) rotate(-45deg);opacity:0}
+  60%{transform:scale(1.2) rotate(5deg)}
+  100%{transform:scale(1) rotate(0);opacity:1}
+}
+.ring{
+  width:74px;height:74px;border-radius:50%;
+  border:2px solid var(--rose);
+  position:relative;display:flex;
+  align-items:center;justify-content:center;
+}
+.ring::before{
+  content:'';position:absolute;inset:-5px;
+  border-radius:50%;border:2px solid var(--rose);
+  animation:pulseRing 1.3s ease-out infinite;
+}
+.check{font-size:2rem;animation:tickIn 0.5s 0.2s ease both;opacity:1}
+.suc-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:600;
+}
+.suc-sub{font-size:0.86rem;color:var(--text-muted);font-weight:300;line-height:1.6}
+.prog-wrap{width:100%;height:3px;background:var(--dark3);border-radius:2px;overflow:hidden}
+.prog{height:100%;width:0%;background:var(--rose);border-radius:2px;transition:width 0.08s linear}
+
+/* animations */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(22px)}
+  to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LEFT PANEL -->
+  <div class="left">
+    <!-- VEIL BACKGROUND CANVASES (Scoped to Left Panel) -->
+    <div style="position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%;">
+      <canvas id="veilCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
+    </div>
+
+    <div class="brand">
+      <div class="brand-icon">
+        <img src="/logo.png" alt="MilanAI Logo"/>
+      </div>
+      <div>
+        <div class="brand-name">Milan<span>AI</span></div>
+        <div class="brand-sub">AI-Powered Matchmaking CRM</div>
+      </div>
+    </div>
+
+    <div class="headline">
+      <h1>Where Every<br>Rishta Finds Its<em>Sahi Milan</em></h1>
+      <p>India's most intelligent matchmaking platform — trusted by families across every community, every faith, every city.</p>
+    </div>
+
+    <div class="ornament">— ✦ —</div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right">
+    <div id="formView">
+      <div class="form-header">
+        <h2 id="formTitle">Welcome back</h2>
+        <p id="formSub">Sign in to your MilanAI account</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" id="tabL" onclick="switchTab('login')">Sign In</button>
+        <button class="tab" id="tabR" onclick="switchTab('register')">Register</button>
+      </div>
+
+      <!-- LOG IN FIELDS -->
+      <div id="loginFields">
+        <div class="field" style="animation-delay:.2s">
+          <label class="flabel">Username</label>
+          <div class="fwrap">
+            <i class="ti ti-user ficon"></i>
+            <input class="finput" type="text" placeholder="Enter username" id="loginUsername"/>
+          </div>
+        </div>
+        <div class="field" style="animation-delay:.25s">
+          <label class="flabel">Password</label>
+          <div class="fwrap">
+            <i class="ti ti-lock ficon"></i>
+            <input class="finput" type="password" placeholder="Enter your password" id="passInp"/>
+            <button class="eye" onclick="togglePass('passInp', 'eyeIco')" aria-label="Toggle password visibility">
+              <i class="ti ti-eye" id="eyeIco"></i>
+            </button>
+          </div>
+        </div>
+        <a href="#" class="forgot">Forgot password?</a>
+        <button class="submit-btn" onclick="doLogin()" id="mainBtn">
+          <span id="btnTxt">Sign In to MilanAI</span>
+          <span class="shimmer" id="btnShimmer"></span>
+        </button>
+      </div>
+
+      <!-- REGISTER FIELDS -->
+      <div id="regFields" style="display:none">
+        <div class="field" style="animation-delay:.15s">
+          <label class="flabel">Full name</label>
+          <div class="fwrap">
+            <i class="ti ti-user ficon"></i>
+            <input class="finput" type="text" placeholder="Your full name" id="regName"/>
+          </div>
+        </div>
+        <div class="field" style="animation-delay:.2s">
+          <label class="flabel">Email address</label>
+          <div class="fwrap">
+            <i class="ti ti-mail ficon"></i>
+            <input class="finput" type="email" placeholder="you@example.com" id="regEmail"/>
+          </div>
+        </div>
+        <div class="field" style="animation-delay:.25s">
+          <label class="flabel">Create password</label>
+          <div class="fwrap">
+            <i class="ti ti-lock ficon"></i>
+            <input class="finput" type="password" placeholder="Min. 8 characters" id="regPass"/>
+            <button class="eye" onclick="togglePass('regPass', 'eyeIcoReg')" aria-label="Toggle password visibility">
+              <i class="ti ti-eye" id="eyeIcoReg"></i>
+            </button>
+          </div>
+        </div>
+        <button class="submit-btn" onclick="doRegister()" id="regBtn">
+          <span id="regBtnTxt">Create My Account</span>
+        </button>
+      </div>
+
+      <p class="switch" id="switchTxt" style="margin-top: 2vh">
+        Don't have an account? <a href="#" onclick="switchTab('register');return false">Register free</a>
+      </p>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div class="success" id="successView">
+      <div class="ring"><span class="check">✓</span></div>
+      <div class="suc-title">Welcome back!</div>
+      <div class="suc-sub">Redirecting to your<br>MilanAI Workstation…</div>
+      <div class="prog-wrap"><div class="prog" id="prog"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── CANVAS VEIL ── */
+const cv = document.getElementById('veilCanvas');
+const ctx = cv.getContext('2d');
+let animationId;
+let time = 0;
+const speed = 1.2;
+const warpAmount = 0.3;
+
+function resize() {
+  cv.width = cv.offsetWidth;
+  cv.height = cv.offsetHeight;
+}
+
+const draw = () => {
+  const W = cv.width;
+  const H = cv.height;
+  
+  ctx.fillStyle = '#15080D';
+  ctx.fillRect(0, 0, W, H);
+
+  time += 0.005 * speed; 
+
+  // Orb 1
+  const orb1X = W * 0.3 + Math.sin(time) * W * warpAmount; 
+  const orb1Y = H * 0.5 + Math.cos(time * 0.8) * H * 0.3;
+  const grad1 = ctx.createRadialGradient(orb1X, orb1Y, 0, orb1X, orb1Y, W * 0.9);
+  grad1.addColorStop(0, 'rgba(224, 84, 112, 0.3)'); 
+  grad1.addColorStop(1, 'transparent');
+
+  // Orb 2
+  const orb2X = W * 0.7 + Math.cos(time * 1.1) * W * warpAmount;
+  const orb2Y = H * 0.4 + Math.sin(time * 0.9) * H * 0.3;
+  const grad2 = ctx.createRadialGradient(orb2X, orb2Y, 0, orb2X, orb2Y, W * 0.8);
+  grad2.addColorStop(0, 'rgba(201, 168, 76, 0.2)'); 
+  grad2.addColorStop(1, 'transparent');
+
+  // Orb 3
+  const orb3X = W * 0.5 + Math.sin(time * 0.5) * W * 0.4;
+  const orb3Y = H * 0.8 + Math.cos(time * 1.2) * H * 0.2;
+  const grad3 = ctx.createRadialGradient(orb3X, orb3Y, 0, orb3X, orb3Y, W * 1.0);
+  grad3.addColorStop(0, 'rgba(80, 30, 140, 0.25)'); 
+  grad3.addColorStop(1, 'transparent');
+
+  ctx.globalCompositeOperation = 'screen';
+  ctx.fillStyle = grad1; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = grad2; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = grad3; ctx.fillRect(0, 0, W, H);
+  ctx.globalCompositeOperation = 'source-over';
+
+  animationId = requestAnimationFrame(draw);
+};
+
+window.addEventListener('resize', resize);
+resize();
+draw();
+
+/* ── TABS ── */
+function switchTab(t){
+  const isL=t==='login';
+  document.getElementById('tabL').className='tab'+(isL?' active':'');
+  document.getElementById('tabR').className='tab'+(!isL?' active':'');
+  document.getElementById('loginFields').style.display=isL?'block':'none';
+  document.getElementById('regFields').style.display=isL?'none':'block';
+  document.getElementById('formTitle').textContent=isL?'Welcome back':'Create account';
+  document.getElementById('formSub').textContent=isL?'Sign in to your MilanAI account':'Join families on MilanAI';
+  document.getElementById('switchTxt').innerHTML=isL
+    ?'Don\'t have an account? <a href="#" onclick="switchTab(\'register\');return false">Register free</a>'
+    :'Already have an account? <a href="#" onclick="switchTab(\'login\');return false">Sign in</a>';
+}
+
+/* ── PASSWORD TOGGLE ── */
+let vis={};
+function togglePass(id, icoId){
+  vis[id] = !vis[id];
+  document.getElementById(id).type=vis[id]?'text':'password';
+  document.getElementById(icoId).className=vis[id]?'ti ti-eye-off':'ti ti-eye';
+}
+
+/* ── LOGIN FLOW ── */
+async function doLogin(){
+  const btn=document.getElementById('mainBtn');
+  if(!btn || btn.classList.contains('loading'))return;
+  
+  const usernameInput = document.getElementById('loginUsername');
+  const passwordInput = document.getElementById('passInp');
+  
+  const username = usernameInput ? usernameInput.value.trim() : '';
+  const password = passwordInput ? passwordInput.value : '';
+
+  if(!username || !password){
+    alert("Please enter both username and password.");
+    return;
+  }
+
+  const txt=document.getElementById('btnTxt');
+  const sh=document.getElementById('btnShimmer');
+  btn.classList.add('loading');
+  if(txt) txt.textContent='Signing in…';
+  if(sh) sh.style.display='block';
+
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      localStorage.setItem('matchmaker-session', 'active');
+      localStorage.setItem('matchmaker-user', JSON.stringify(result));
+      document.cookie = "matchmaker-username=" + result.username + "; path=/; max-age=31536000";
+      
+      document.getElementById('formView').style.display='none';
+      const sv=document.getElementById('successView');
+      sv.style.display='flex';
+      let w=0;
+      const bar=document.getElementById('prog');
+      const iv=setInterval(()=>{
+        w+=2.5;
+        bar.style.width=Math.min(w,100)+'%';
+        if(w>=100) {
+          clearInterval(iv);
+          window.location.href = '/dashboard';
+        }
+      },30);
+    } else {
+      alert(result.error || "Invalid username or password.");
+      btn.classList.remove('loading');
+      if (txt) txt.textContent='Sign In to MilanAI';
+      if (sh) sh.style.display='none';
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Could not connect to authentication API.");
+    btn.classList.remove('loading');
+    if (txt) txt.textContent='Sign In to MilanAI';
+    if (sh) sh.style.display='none';
+  }
+}
+
+/* ── REGISTER FLOW ── */
+async function doRegister(){
+  const btn=document.getElementById('regBtn');
+  if(!btn || btn.classList.contains('loading'))return;
+
+  const nameInput = document.getElementById('regName');
+  const emailInput = document.getElementById('regEmail');
+  const passwordInput = document.getElementById('regPass');
+
+  const name = nameInput ? nameInput.value.trim() : '';
+  const email = emailInput ? emailInput.value.trim() : '';
+  const password = passwordInput ? passwordInput.value : '';
+
+  if(!name || !email || !password){
+    alert("Please fill in all registration fields.");
+    return;
+  }
+
+  const username = email.split('@')[0];
+  const txt = document.getElementById('regBtnTxt');
+  btn.classList.add('loading');
+  if (txt) txt.textContent = 'Registering...';
+
+  try {
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, username })
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      localStorage.setItem('matchmaker-session', 'active');
+      localStorage.setItem('matchmaker-user', JSON.stringify(result));
+      document.cookie = "matchmaker-username=" + result.username + "; path=/; max-age=31536000";
+      
+      alert("Registration successful! Logging in...");
+      window.location.href = '/dashboard';
+    } else {
+      alert(result.error || "Failed to create account.");
+      btn.classList.remove('loading');
+      if (txt) txt.textContent = 'Create My Account';
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Could not connect to registration API.");
+    btn.classList.remove('loading');
+    if (txt) txt.textContent = 'Create My Account';
+  }
+}
+
+/* ── CHECK ACTIVE SESSION ── */
+window.addEventListener('DOMContentLoaded', () => {
+  const session = localStorage.getItem('matchmaker-session');
+  if (session === 'active') {
+    window.location.href = '/dashboard';
+  }
+});
+</script>
+</body>
+</html>
